@@ -6,6 +6,28 @@ The entire system is styled under a high-contrast, technical monospace **"Newspr
 
 ---
 
+## 📺 Demonstration & UI Tour
+
+### 🎬 System Preview (Video Demo)
+Complete walk-through showing the seamless GSAP transitions, slide-out drawer flag creation/editing, and the rolling text marquee stock ticker:
+
+<video src="output/preview.mp4" width="100%" controls autoplay loop muted></video>
+
+> [!NOTE]
+> If your browser or markdown viewer does not render the video automatically, you can [download the video directly](output/preview.mp4) or watch it locally.
+
+### 📸 Interface Screenshots
+
+| Org Admin Dashboard Ledger | End-User Flag Evaluator |
+| :---: | :---: |
+| ![Org Admin Dashboard Ledger](output/Org_admin_dashboard.png) | ![End-User Flag Evaluator](output/end_user_check.png) |
+
+| Creating Feature Flag Drawer | Editing Feature Flag Drawer |
+| :---: | :---: |
+| ![Creating Feature Flag Drawer](output/org_admin_create_flag.png) | ![Editing Feature Flag Drawer](output/org_admin_edit_flag.png) |
+
+---
+
 ## 🛠️ Architecture & Port Mapping
 
 The system runs as an integrated ecosystem comprising **one backend service** and **three frontend portals** communicating concurrently:
