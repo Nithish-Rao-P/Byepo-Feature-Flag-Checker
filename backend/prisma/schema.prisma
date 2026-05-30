@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ORG_ADMIN @map("org_admin")
+  END_USER  @map("end_user")
+
+  @@map("user_role")
+}
+
+model Organization {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String        @db.VarChar(100)
+  slug         String        @unique @db.VarChar(120)
+  users        User[]
+  featureFlags FeatureFlag[]
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@map("organizations")
+}
+
+model User {
+  id             String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String        @db.VarChar(100)
+  email          String        @unique @db.VarChar(255)
+  passwordHash   String        @map("password_hash") @db.VarChar(255)
+  role           UserRole
+  organizationId String        @map("organization_id") @db.Uuid
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdFlags   FeatureFlag[] @relation("CreatedFlags")
+  createdAt      DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@index([organizationId], map: "idx_users_organization_id")
+  @@map("users")
+}
+
+model FeatureFlag {
+  id             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key            String       @db.VarChar(100)
+  description    String?      @db.VarChar(500)
+  isEnabled      Boolean      @default(false) @map("is_enabled")
+  organizationId String       @map("organization_id") @db.Uuid
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdById    String?      @map("created_by") @db.Uuid
+  createdBy      User?        @relation("CreatedFlags", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt      DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@unique([organizationId, key], map: "uq_flag_key_per_org")
+  @@index([organizationId], map: "idx_feature_flags_organization_id")
+  @@map("feature_flags")
+}

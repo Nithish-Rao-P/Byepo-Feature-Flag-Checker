@@ -1,0 +1,12 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- The "Cool C" - A minimalist, stark geometric 'C' outline in the 'Cool S' style -->
+  <path
+    d="M 27.5,15 L 60,15 L 75,27.5 L 60,40 L 40,40 L 40,60 L 60,60 L 75,72.5 L 60,85 L 27.5,85 L 15,72.5 L 15,27.5 Z"
+    stroke="#111111"
+    stroke-width="8.5"
+    stroke-linejoin="miter"
+    stroke-linecap="square"
+    fill="none"
+    class="cool-c-fill-target"
+  />
+</svg>
