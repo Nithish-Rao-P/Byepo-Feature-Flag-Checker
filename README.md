@@ -54,16 +54,16 @@ erDiagram
     ORGANIZATION {
         uuid id PK
         varchar name
-        varchar slug UNIQUE
+        varchar slug "UNIQUE"
         timestamptz created_at
     }
     
     USER {
         uuid id PK
         varchar name
-        varchar email UNIQUE
+        varchar email "UNIQUE"
         varchar password_hash
-        enum role "org_admin | end_user"
+        UserRole role "org_admin | end_user"
         uuid organization_id FK
         timestamptz created_at
     }
